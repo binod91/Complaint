@@ -14,12 +14,14 @@
         <fieldset id="personal-info">
             <div>
                 <label for="full-name">Full Name:</label>
-                <input type="text" id="full-name" name="full-name" placeholder="John Doe">
+                <input type="text" id="full-name" name="full-name"  placeholder="John Doe">
+                <span id="name-error" class="error-msg"></span>
             </div>
 
             <div>
                 <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" placeholder="example@domain.com">
+                <input type="email" id="email" name="email"  placeholder="example@domain.com">
+                <span id="email-error" class="error-msg"></span>
             </div>
         </fieldset>
         <hr>
@@ -27,10 +29,12 @@
             <div>
                 <label for="order-no">Order No:</label>
                 <input type="text" id="order-no" name="order-no" placeholder="2024######">
+                <span id="order-error" class="error-msg"></span>
             </div>
             <div>
                 <label for="product-code">Product Code:</label>
                 <input type="text" id="product-code" name="product-code" placeholder="XX##-X###-XX#">
+                <span id="code-error" class="error-msg"></span>
             </div>
             <div>
                 <label for="quantity">Quantity:</label>

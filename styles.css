@@ -40,3 +40,18 @@ textarea {
 #submit-btn, #clear-btn {
     margin: 10px 15px 0;
 }
+.error-msg {
+    margin-left: 10px;
+    font-weight: bold;
+    /* This ensures it stays on the same line as the input */
+    display: inline-block; 
+}
+
+/* If the screen is small, put the error on a new line */
+@media (max-width: 600px) {
+    .error-msg {
+        display: block;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
