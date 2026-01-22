@@ -26,7 +26,7 @@ const validateForm = [
         id: 'email',
         regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         errorMessage: "invalid Email. It should contain only letters and spaces.",
-        errorId: 'name-error',
+        errorId: 'email-error',
         required: true,
     },
     
