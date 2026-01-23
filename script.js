@@ -1,13 +1,4 @@
 
-// const orderRegex = /^2024\d{6}$/;
-
-// if(orderRegex.test(orderNo)){
-//     messageBox.textContent = "valid order number.";
-//     messageBox.style.color = "green";
-// }else{
-//     messageBox.textContent = "invalid order number. It should start with '2024' followed by 6 digits.";
-//     messageBox.style.color = "red";
-// }
 const submitBtn = document.getElementById('submit-btn');
 
 
@@ -47,7 +38,33 @@ const validateForm = [
     errorMessage: "invalid product code. It should follow the format 'XX##-X###-XX#'.",
     errorId: 'code-error',
     required: false,
+},
+// quantity Validation
+{
+    id: 'quantity',
+    regex: /^\d+$/,
+    errorMessage: "invalid quantity Number. It should be a positive integer.",
+    errorId: 'quality-error',
+    required: true
+},
+// complaint type Validation
+{
+    id: 'complaints-group',
+    regex: /^(damaged-product|nonconforming-product|delayed-dispatch |other)$/,
+    errorMessage: "Please select a complaint type.",
+    errorId: 'complaint-error',
+    required: true
+},
+// Description of Complaint Reason
+{
+    id: 'complaint-description',
+    regex: /^.{20,}$/,
+    errorMessage: "Description must be at least 20 characters long.",
+    errorId: 'textarea-error',
+    required: false,
 }
+
+
 ]
 
 function validateform(){
@@ -56,6 +73,8 @@ function validateform(){
     validateForm.forEach(field => {
         const inputElement = document.getElementById(field.id);
         const errorElement = document.getElementById(field.errorId);
+        const checkboxes = document.querySelectorAll('input[name="complaint"]:checked');
+// const complaintError = document.getElementById('complaint-error');
         const value = inputElement.value.trim();
 
         // Clear previous error message
@@ -77,6 +96,34 @@ function validateform(){
             // success case
         inputElement.style.borderColor = "green";
         }
+
+        // Special handling for complaint type checkboxes
+        if(field.id === 'complaint-group'){
+            if(checkboxes.length === 0){
+                complaintError.textContent = field.errorMessage;
+                complaintError.style.color = "red";
+                isFormValid = false;
+            }else{
+                complaintError.textContent = "";
+            }
+        }
+        
+        
+        // Special handling for complaint description textarea
+        if(field.id === 'complaint-description'){
+            const complaintCheckbox = document.getElementById('other-complaint');
+            if(complaintCheckbox.checked){
+                if(value === ""){
+                    errorElement.textContent = "Description is required when 'Other' complaint type is selected.";
+                    errorElement.style.color = "red";
+                    isFormValid = false;
+                }else if(!field.regex.test(value)){
+                    errorElement.textContent = field.errorMessage;
+                    errorElement.style.color = "red";
+                    isFormValid = false;
+                }
+            }
+        }
     });
 
     return isFormValid;     
@@ -85,37 +132,7 @@ function validateform(){
 
 
 
-// const orderNo = document.getElementById('order-no').value;
-// const fullName = document.getElementById('full-name').value.trim();
-// const emailValid = document.getElementById('email').value.trim();
-// const messageBox = document.getElementById('message-box');
 
-// messageBox.textContent = "";
-
-// validating full name
-// if(!fullNameRegex.test(fullName)){
-//     messageBox.textContent = "invalid full name. It should contain only letters and spaces.";
-//     messageBox.style.color = "red";
-//     return false;       
-// }
-
-// // validating email
-// if(!emailRegex.test(emailValid)){
-//     messageBox.textContent = "invalid Email Address.";
-//     messageBox.style.color = "red";
-//     return false;
-// }
-
-// // validating order number
-// if(orderRegex.test(orderNo)){
-//     return true;
-// }else{
-//     messageBox.textContent = "invalid order number. It should start with '2024' followed by 6 digits.";
-//     messageBox.style.color = "red";
-//     return false;   
-// }
-
-// }
 
 submitBtn.addEventListener('click', function(event){
     event.preventDefault(); // Prevent form submission
